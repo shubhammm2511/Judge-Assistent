@@ -8,6 +8,8 @@ The application retrieves relevant passages from the PDF before asking a languag
 
 ## Architecture
 
+![RAG workflow](visualization/rag_workflow.png)
+
 ```text
 PDF
   → Text extraction with PyMuPDF
