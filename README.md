@@ -1,4 +1,4 @@
-You can open the deployed chatbot here: https://judge-assistentt.streamlit.app/
+You can open the deployed chatbot here: (https://judge-assistent-uw.streamlit.app/)
 
 # Agent-as-a-Judge RAG Assistant
 
