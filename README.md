@@ -18,7 +18,7 @@ The workflow is:
 4. Store embeddings, text, and metadata in ChromaDB.
 5. Embed the user question and retrieve the most relevant chunks.
 6. Combine the retrieved context with a grounded prompt.
-7. Generate a streamed answer through OpenRouter.
+7. Generate a streamed answer through NVIDIA's OpenAI-compatible API.
 8. Display the answer and retrieved evidence in the Streamlit interface.
 
 ## Technologies
@@ -28,7 +28,7 @@ The workflow is:
 - LangChain text splitters for chunking
 - Sentence Transformers for embeddings
 - ChromaDB for vector storage
-- OpenRouter-compatible OpenAI client for the LLM
+- NVIDIA's OpenAI-compatible API for the LLM
 - Streamlit for the chatbot UI
 - Pillow for generating the workflow diagram
 
@@ -72,9 +72,9 @@ python -m pip install -r requirements.txt
 Create a `.env` file in the project root. Never commit this file or expose the API key.
 
 ```env
-OPENROUTER_API_KEY=your_openrouter_api_key
-OPENROUTER_MODEL=nvidia/nemotron-3-ultra-550b-a55b:free
-OPENROUTER_BASE_URL=https://openrouter.ai/api/v1
+NVIDIA_API_KEY=your_nvidia_api_key
+NVIDIA_MODEL=nvidia/nemotron-3-ultra-550b-a55b
+NVIDIA_BASE_URL=https://integrate.api.nvidia.com/v1
 ```
 
 ## Build the local index
@@ -116,9 +116,9 @@ The interface supports:
 4. In the app settings, add these secrets:
 
 ```toml
-OPENROUTER_API_KEY = "your_openrouter_api_key"
-OPENROUTER_MODEL = "nvidia/nemotron-3-ultra-550b-a55b:free"
-OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
+NVIDIA_API_KEY = "your_nvidia_api_key"
+NVIDIA_MODEL = "nvidia/nemotron-3-ultra-550b-a55b"
+NVIDIA_BASE_URL = "https://integrate.api.nvidia.com/v1"
 ```
 
 5. Deploy the app and wait for the first build. Because `chroma_db/` is intentionally not committed, the app creates the index from `data/Agent-as-Judge.pdf` on its first startup.
@@ -153,7 +153,7 @@ Chunks are approximately 900 characters with overlap. Each chunk stores its sour
 - The system currently indexes one PDF.
 - Retrieval quality depends on chunking and embedding quality.
 - PDF extraction may be imperfect for figures, tables, and unusual layouts.
-- The free OpenRouter model may have rate limits or variable response latency.
+- The hosted model may have rate limits or variable response latency.
 - Similarity scores are retrieval signals, not truth probabilities.
 
 ## Future improvements

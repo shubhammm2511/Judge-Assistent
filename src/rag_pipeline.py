@@ -59,17 +59,15 @@ def get_setting(name: str, default: str | None = None) -> str | None:
         return default
 
 
-def get_openrouter_client() -> OpenAI:
-    api_key = get_setting("OPENROUTER_API_KEY")
+def get_nvidia_client() -> OpenAI:
+    api_key = get_setting("NVIDIA_API_KEY")
     base_url = get_setting(
-        "OPENROUTER_BASE_URL",
-        "https://openrouter.ai/api/v1",
+        "NVIDIA_BASE_URL",
+        "https://integrate.api.nvidia.com/v1",
     )
 
-    if not api_key or api_key == "PASTE_YOUR_OPENROUTER_KEY_HERE":
-        raise ValueError(
-            "OPENROUTER_API_KEY is missing or still contains the placeholder."
-        )
+    if not api_key or api_key == "PASTE_YOUR_NVIDIA_KEY_HERE":
+        raise ValueError("NVIDIA_API_KEY is missing or still contains the placeholder.")
 
     return OpenAI(
         api_key=api_key,
@@ -122,11 +120,11 @@ def stream_answer(
     question: str,
     retrieved_chunks: list[dict[str, Any]],
 ):
-    """Stream answer text from OpenRouter for an already retrieved context."""
-    client = get_openrouter_client()
+    """Stream answer text from NVIDIA for an already retrieved context."""
+    client = get_nvidia_client()
     model = get_setting(
-        "OPENROUTER_MODEL",
-        "nvidia/nemotron-3-ultra-550b-a55b:free",
+        "NVIDIA_MODEL",
+        "nvidia/nemotron-3-ultra-550b-a55b",
     )
 
     response = client.chat.completions.create(
@@ -158,11 +156,11 @@ def answer_question(
         top_k=top_k,
     )
 
-    client = get_openrouter_client()
+    client = get_nvidia_client()
 
     model = get_setting(
-        "OPENROUTER_MODEL",
-        "nvidia/nemotron-3-ultra-550b-a55b:free",
+        "NVIDIA_MODEL",
+        "nvidia/nemotron-3-ultra-550b-a55b",
     )
 
     response = client.chat.completions.create(
